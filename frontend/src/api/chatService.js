@@ -38,8 +38,10 @@
  */
 
 export const API_CONFIG = {
-  // Toggle this to false when your Express backend is running on port 5000
-  useMock: localStorage.getItem('algomentor_use_mock') !== 'false',
+  // If VITE_BACKEND_URL is provided, default to live backend; otherwise check localStorage
+  useMock: localStorage.getItem('algomentor_use_mock') !== null
+    ? localStorage.getItem('algomentor_use_mock') === 'true'
+    : !import.meta.env.VITE_BACKEND_URL,
   
   // Express server endpoint:
   BACKEND_URL: import.meta.env.VITE_BACKEND_URL || 'http://localhost:5000/api/chat',
